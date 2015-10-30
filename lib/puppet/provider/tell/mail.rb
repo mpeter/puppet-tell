@@ -29,6 +29,7 @@
 
 require 'puppet/provider'
 require 'net/smtp'
+require 'facter'
 
 Puppet::Type.type(:tell).provide :mail do
   defaultfor :kernel => 'Linux'
@@ -44,7 +45,7 @@ Puppet::Type.type(:tell).provide :mail do
       end
     end
     munge do |value|
-      value += "@#{Facter::fqdn}" unless value.include? '@'
+      value += Facter.value(:fqdn) unless value.include? '@'
       value
     end
   end

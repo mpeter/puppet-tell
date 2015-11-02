@@ -26,6 +26,7 @@ resource changes:
 
 * By email
 * Using a web hook (way more interesting)
+* To Slack channel
 
 It will expose any resource change by sending the resource data
 to the external party. The resource data is simply the pson data
@@ -151,6 +152,18 @@ Results in JSON format (requires 'json' rubygem)
         ]
       }
     ]
+
+
+Using Slack
+-----------
+
+    tell {
+        'package_updated_webhook':
+            dest => 'http://rest.example.com/v1/package-update-notifications',
+            channel = '#general',
+            username = 'puppetbot',
+            message = 'Test Message',
+    }
 
 In the near future
 ------------------

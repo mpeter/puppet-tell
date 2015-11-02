@@ -57,17 +57,6 @@ holler at ya!"
     desc "The name of the tell resource"
   end
 
-  newparam(:channel) do
-    desc "The slack channel"
-  end
-
-  newparam(:username) do
-    desc "The slack username"
-  end
-
-  newparam(:message) do
-    desc "The slack message"
-  end
 
   newparam(:refresh) do
     desc "Refresh this teller"
@@ -105,6 +94,18 @@ holler at ya!"
     desc "The encoding type to use for the resource object."
     newvalues(:json, :yaml)
     defaultto :yaml
+  end
+
+  newparam(:channel) do
+    desc "The slack channel"
+  end
+
+  newparam(:username) do
+    desc "The slack username"
+  end
+
+  newparam(:message) do
+    desc "The slack message"
   end
 
   newproperty(:returns, :array_matching => :all, :event => :told) do |property|

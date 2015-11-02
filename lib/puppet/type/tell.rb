@@ -77,6 +77,8 @@ holler at ya!"
     validate do |value|
       if /^([a-zA-Z0-9\-\._]+)@([a-zA-Z0-9\-\._]+)$/.match(value)
         @resource.provider = :mail
+      elsif /hooks\.slack\.com/.match(value)
+        @resource.provider = :slack
       elsif /^http(s)?:\/\//.match(value)
         @resource.provider = :webhook
       else

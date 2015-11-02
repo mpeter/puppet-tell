@@ -61,18 +61,6 @@ holler at ya!"
     desc "Refresh this teller"
   end
 
-  newparam(:channel) do
-    desc "slack channel"
-  end
-
-  newparam(:username) do
-    desc "slack username"
-  end
-
-  newparam(:message) do
-    desc "slack message"
-  end
-
   newcheck(:refreshonly) do
     desc "Whether or not to repeatedly call this resource. If true, this
       resource will only be executed when another resource tells it to
@@ -90,6 +78,7 @@ holler at ya!"
       if /^([a-zA-Z0-9\-\._]+)@([a-zA-Z0-9\-\._]+)$/.match(value)
         @resource.provider = :mail
       elsif /^https:\/\/hooks\.slack\.com\/services\.*/.match(value)
+        Puppet.debug("using slack library for '#{value}'")
         @resource.provider = :slack
       elsif /^http(s)?:\/\//.match(value)
         @resource.provider = :webhook
@@ -122,7 +111,7 @@ holler at ya!"
     end
   end
 
-  def refresh 
+  def refresh
     if self.check_all_attributes(true)
       if self[:refresh]
         notice "Successfully told #{@resource[:dest]}" if provider.tell
@@ -130,7 +119,7 @@ holler at ya!"
       else
         self.property(:returns).sync
       end
-    end     
+    end
   end
 
   def get_triggers
@@ -162,10 +151,10 @@ holler at ya!"
       if @parameters.include?(check)
         val = @parameters[check].value
         val = [val] unless val.is_a? Array
-        val.each do |value| 
+        val.each do |value|
           return false unless @parameters[check].check(value)
-        end     
-      end     
+        end
+      end
     end
     true
   end

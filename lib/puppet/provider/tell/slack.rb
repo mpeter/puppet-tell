@@ -38,7 +38,7 @@ Puppet::Type.type(:tell).provide :slack do
     notifier = Slack::Notifier.new(webhook_url => 'https://hooks.slack.com/services/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', channel => 'asdf', username => 'chickenlittle')
     #notifier.channel = 'asdf'
     #notifier.username = 'chickenlittle'
-    notifier.ping('asdf')
+    notifier.ping(message => 'asdf')
   end
 
 end

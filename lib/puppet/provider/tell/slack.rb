@@ -33,22 +33,6 @@ require 'json'
 
 Puppet::Type.type(:tell).provide :slack do
 
-  Puppet::Type.type(:tell).newparam(:channel) do
-    desc = "The slack channel"
-  end
-
-  Puppet::Type.type(:tell).newparam(:username) do
-    desc = "The slack username"
-  end
-
-  Puppet::Type.type(:tell).newparam(:username) do
-    desc = "The slack username"
-  end
-
-  Puppet::Type.type(:tell).newparam(:message) do
-    desc = "The slack message"
-  end
-
   conn = Faraday.new(:url => "#{@resource[:dest]}") do |faraday|
     faraday.request  :url_encoded
     faraday.adapter  Faraday.default_adapter

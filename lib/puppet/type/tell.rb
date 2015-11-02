@@ -57,6 +57,18 @@ holler at ya!"
     desc "The name of the tell resource"
   end
 
+  newparam(:channel) do
+    desc "The slack channel"
+  end
+
+  newparam(:username) do
+    desc "The slack username"
+  end
+
+  newparam(:message) do
+    desc "The slack message"
+  end
+
   newparam(:refresh) do
     desc "Refresh this teller"
   end

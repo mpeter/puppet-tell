@@ -34,23 +34,33 @@ require 'json'
 Puppet::Type.type(:tell).provide :slack do
 
   def tell
-    #notifier = Slack::Notifier.new "#{@resource[:dest]}", channel: "#{@resource[:channel]}", username: "#{@resource[:username]}"
-    #notifier.ping "#{@resource[:message]}"
-    #notifier = SlackNotify::Client.new(:webhook_url => "https://hooks.slack.com/services/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",
-    #                                   :channel => "asdf",
-    #                                   :username => "chickenlittle")
-    #notifier.channel = 'asdf'
-    #notifier.username = 'chickenlittle'
-    #notifier.notify("asdf")
-    conn = Faraday.new(:url => "https://hooks.slack.com/services/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") do |faraday|
+
+  Puppet::Type.type(:tell).newparam(:channel) do
+    desc = "The slack channel"
+  end
+
+  Puppet::Type.type(:tell).newparam(:username) do
+    desc = "The slack username"
+  end
+
+  Puppet::Type.type(:tell).newparam(:username) do
+    desc = "The slack username"
+  end
+
+  Puppet::Type.type(:tell).newparam(:message) do
+    desc = "The slack message"
+  end
+
+    x#
+    conn = Faraday.new(:url => "#{@resource[:dest]}") do |faraday|
       faraday.request  :url_encoded
       faraday.adapter  Faraday.default_adapter
     end
-    message = { :channel  => "asdf",
-                :username => "chickenlittle",
-                :attachments => [{ :fallback => "TEST",
+    message = { :channel  => "#{@resource[:channel]}",
+                :username => "#{@resource[:username]}",
+                :attachments => [{ :fallback => "#{@resource[:message]}",
                                    :color => 'good',
-                                   :text => "Puppet run for TEST",
+                                   :text => "#{@resource[:message]}",
                                    :mrkdwn_in => ["text"] }]}
 
     conn.post do |req|

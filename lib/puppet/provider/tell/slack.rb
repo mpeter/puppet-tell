@@ -33,19 +33,20 @@ require 'json'
 
 Puppet::Type.type(:tell).provide :slack do
 
-  conn = Faraday.new(:url => "#{@resource[:dest]}") do |faraday|
-    faraday.request  :url_encoded
-    faraday.adapter  Faraday.default_adapter
-  end
-  json_msg = { :channel  => "#{@resource[:channel]}",
-              :username => "#{@resource[:username]}",
-              :attachments => [{ :fallback => "#{@resource[:message]}",
-                                 :color => 'good',
-                                 :text => "#{@resource[:message]}",
-                                 :mrkdwn_in => ["text"] }]}
+  def tell 
+    conn = Faraday.new(:url => "#{@resource[:dest]}") do |faraday|
+      faraday.request  :url_encoded
+      faraday.adapter  Faraday.default_adapter
+    end
+    json_msg = { :channel  => "#{@resource[:channel]}",
+                 :username => "#{@resource[:username]}",
+                 :attachments => [{ :fallback => "#{@resource[:message]}",
+                                    :color => 'good',
+                                    :text => "#{@resource[:message]}",
+                                    :mrkdwn_in => ["text"] }]}
 
-  conn.post do |req|
-    req.body = JSON.dump(json_msg)
+    conn.post do |req|
+      req.body = JSON.dump(json_msg)
+    end
   end
-
 end

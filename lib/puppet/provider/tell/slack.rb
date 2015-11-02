@@ -40,17 +40,13 @@ Puppet::Type.type(:tell).provide :slack do
     desc = "Slack Username"
   end
 
-  Puppet::Type.type(:tell).newparam(:message) do
-    desc = "Message to send"
-  end
-
   def tell
     #notifier = Slack::Notifier.new "#{@resource[:dest]}", channel: "#{@resource[:channel]}", username: "#{@resource[:username]}"
     #notifier.ping "#{@resource[:message]}"
-    notifier = Slack::Notifier.new "https://hooks.slack.com/services/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"
+    notifier = Slack::Notifier.new 'https://hooks.slack.com/services/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'
     notifier.channel = 'asdf'
     notifier.username = 'chickenlittle'
-    notifier.ping "asdf"
+    notifier.ping = 'asdf'
   end
 
 end

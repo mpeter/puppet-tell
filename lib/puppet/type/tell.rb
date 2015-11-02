@@ -61,6 +61,18 @@ holler at ya!"
     desc "Refresh this teller"
   end
 
+  newparam(:channel) do
+    desc "slack channel"
+  end
+
+  newparam(:username) do
+    desc "slack username"
+  end
+
+  newparam(:message) do
+    desc "slack message"
+  end
+
   newcheck(:refreshonly) do
     desc "Whether or not to repeatedly call this resource. If true, this
       resource will only be executed when another resource tells it to
@@ -77,7 +89,7 @@ holler at ya!"
     validate do |value|
       if /^([a-zA-Z0-9\-\._]+)@([a-zA-Z0-9\-\._]+)$/.match(value)
         @resource.provider = :mail
-      elsif /hooks\.slack\.com/.match(value)
+      elsif /^https:\/\/hooks\.slack\.com\/services\.*/.match(value)
         @resource.provider = :slack
       elsif /^http(s)?:\/\//.match(value)
         @resource.provider = :webhook

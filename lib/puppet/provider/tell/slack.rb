@@ -48,9 +48,9 @@ Puppet::Type.type(:tell).provide :slack do
     end
     message = { :channel  => "asdf",
                 :username => "chickenlittle",
-                :attachments => [{ :fallback => "Puppet run for #{self.host} `#{self.status}` at #{Time.now.asctime}",
-                                   :color => color,
-                                   :text => "Puppet run for #{self.host} `#{self.status}` at #{Time.now.asctime}",
+                :attachments => [{ :fallback => "TEST",
+                                   :color => 'good',
+                                   :text => "Puppet run for TEST",
                                    :mrkdwn_in => ["text"] }]}
 
     conn.post do |req|

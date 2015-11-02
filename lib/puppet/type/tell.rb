@@ -81,6 +81,7 @@ holler at ya!"
         Puppet.debug("using slack library for '#{value}'")
         @resource.provider = :slack
       elsif /^http(s)?:\/\//.match(value)
+        Puppet.debug("using webhook library for '#{value}'")
         @resource.provider = :webhook
       else
         raise ArgumentError, "Unable to find suitable provider for destination '#{value}'"

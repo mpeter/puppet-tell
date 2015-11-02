@@ -28,17 +28,19 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require 'puppet/provider'
-require 'slack-notifier'
+require 'slack-notify'
 
 Puppet::Type.type(:tell).provide :slack do
 
   def tell
     #notifier = Slack::Notifier.new "#{@resource[:dest]}", channel: "#{@resource[:channel]}", username: "#{@resource[:username]}"
     #notifier.ping "#{@resource[:message]}"
-    notifier = Slack::Notifier.new(webhook_url => 'https://hooks.slack.com/services/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', channel => 'asdf', username => 'chickenlittle')
+    notifier = SlackNotify::Client.new(webhook_url => "https://hooks.slack.com/services/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",
+                                       channel => "asdf",
+                                       username => "chickenlittle")
     #notifier.channel = 'asdf'
     #notifier.username = 'chickenlittle'
-    notifier.ping(message => 'asdf')
+    notifier.notify("asdf")
   end
 
 end

@@ -96,6 +96,18 @@ holler at ya!"
     defaultto :yaml
   end
 
+  newparam(:channel) do
+    desc = "Slack channel"
+  end
+
+  newparam(:username) do
+    desc = "Slack username"
+  end
+
+  newparam(:message) do
+    desc = "Slack message"
+  end
+
   newproperty(:returns, :array_matching => :all, :event => :told) do |property|
     defaultto '0'
 

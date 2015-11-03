@@ -40,10 +40,14 @@ Puppet::Type.type(:tell).provide :slack do
     end
     json_msg = { :channel  => "#{@resource[:channel]}",
                  :username => "#{@resource[:username]}",
-                 :attachments => [{ :fallback => "#{@resource[:message]}",
-                                    :color => 'good',
-                                    :text => "#{@resource[:message]}",
-                                    :mrkdwn_in => ["text"] }]}
+                 :text => "#{@resource[:message]}"
+               }
+
+#                 :attachments => [{ :fallback => "#{@resource[:message]}",
+#                                    :color => 'good',
+#                                    :text => "#{@resource[:message]}",
+#                                    :mrkdwn_in => ["text"] }]}
+#
 
     conn.post do |req|
       req.body = JSON.dump(json_msg)
